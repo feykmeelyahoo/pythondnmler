@@ -55,3 +55,10 @@ print(reduce((lambda x, y: x + y), L))
 mysum = lambda x, y: x + y
 
 print(reduce(mysum, [1, 2, 3, 4, 5]))
+
+
+dizi = list(map(int, "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20".split())) # Bu daha ideal sanırım multi processor
+dizi2 = list(int(x) for x in "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20".split())
+
+print(dizi[::2])
+print(dizi2[::2])
