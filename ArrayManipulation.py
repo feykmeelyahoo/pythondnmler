@@ -1,50 +1,68 @@
-#!/bin/python3
-
-# sample Input
-# 5 3
-# 1 2 100
-# 2 5 100
-# 3 4 100
 import operator
 from functools import reduce
 import sys
 
-if __name__ == "__main__":
-    n, m = input().strip().split(' ')
-    n, m = [int(n), int(m)]
+# if __name__ == "__main__":
+#     n, m = input().strip().split(' ')
+#     n, m = [int(n), int(m)]
+#
+#     finalDict = {}
+#     finalSet = set()
+#     max = None
+#
+#     for a0 in range(m):
+#         a, b, k = input().strip().split(' ')
+#         a, b, k = [int(a), int(b), int(k)]
+#         # print(a, b, k)
+#
+#         list = sorted(finalSet)
+#         length= len(list)
+#         for i in range(length-1):
+#             if a < list[i] :
+#                 finalSet.update(a)
+#                 finalDict[a]=k
+#                 if b< list[i]:
+#                     finalSet.update(b)
+#                     finalDict[a] = k
+#
+#         if a in finalSet:
+#             finalDict[a]+=k
+#
+#         #
+#         # finalSet.update([a, b])
+#         # if finalDict.get(a) == None:
+#         #     finalDict[a] = k
+#         # else:
+#         #     finalDict[a] += k
+#
+#
+# print(finalSet)
+# print(finalDict.items())
+
+from itertools import accumulate
+
+n, m = map(int, input().split(' '))
+# dx = [0] * (n + 1)  # allow run past end
+dx = [1111] * 10**9  # allow run past end
+
+for _ in range(m):
+    a, b, c = map(int, input().split(' '))
+    dx[a - 1] += c
+    dx[b] -= c
+
+print(max(accumulate(dx)))
 
 
-    def ret0(x):
-        return 0
+def InsertNth(head, data, position):
 
+    if head is None: # position must be 0
+        return Node(data, None)
 
-    finalDict = {}
-    max = None
+    if position == 0:
+        return Node(data, head)
 
-    for a0 in range(m):
-        a, b, k = input().strip().split(' ')
-        a, b, k = [int(a), int(b), int(k)]
-        # print(a,b,k)
-
-        # print(list(operator.add(k, x) for x in finalList[a - 1:b]))
-        # finalList[a - 1:b] = list(operator.add(k, x) for x in finalList[a - 1:b])
-
-        for x in range(a - 1, b):
-            if finalDict.get(x) != None:
-                finalDict[x] += k
-            else:
-                finalDict[x] = k
-
-            if max == None or max < finalDict[x] :
-                max = finalDict[x]
-
-                # ((finalDict[x] + k) if finalDict[x] not None else k)
-
-                # print(max(finalDict))
-
-                # print(finalDict)
-
-    # redVal = reduce(lambda x, y: x if x > y else y, finalDict.values())
-    # print(redVal)
-    print(max)
-    # max("finalDict", finalDict)
+    prevNode = head
+    for _ in range(position-1):
+        prevNode = prevNode.next
+    prevNode.next = Node(data, prevNode.next)
+    return head
